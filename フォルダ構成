@@ -1,0 +1,16 @@
+Global_DMS/
+├─ app.py
+├─ logo/
+│  └─ Global_DMS_Logo.png     ← ロゴ画像はここに置く
+├─ templates/
+│  ├─ base.html
+│  └─ index.html
+└─ static/
+   ├─ style.css
+   ├─ menu.js
+   ├─ status.js
+   ├─ logo-scale.js
+   ├─ i18n.js
+   └─ locales/
+      ├─ ja.json
+      └─ en.json
