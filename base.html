@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- タイトルは i18n で上書き可能 -->
+    <title data-i18n="app.title">{{ app_title }}</title>
+
+    <!-- 共通スタイル -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- i18n（辞書フォルダパスを渡す） -->
+    <script>
+        window.__LOCALES_PATH__ = "{{ url_for('static', filename='locales') }}";
+    </script>
+    <script defer src="{{ url_for('static', filename='i18n.js') }}"></script>
+</head>
+
+<body>
+    <!-- ===== サイドバー ===== -->
+    <aside id="sidebar" class="sidebar" aria-hidden="true">
+        <nav class="sidebar-nav" aria-label="メインメニュー">
+            <h2 class="sidebar-title" data-i18n="menu.location">ロケーション選択</h2>
+            <ul class="sidebar-list">
+                <li><a href="#" data-i18n="menu.item.tmc_kinu">TMC衣浦</a></li>
+                <li><a href="#" data-i18n="menu.item.tmc_kamigo">TMC上郷</a></li>
+                <li><a href="#" data-i18n="menu.item.tmc_tahara">TMC田原</a></li>
+                <li><a href="#" data-i18n="menu.item.tmc_gigacast">TMCギガキャスト</a></li>
+                <li><a href="#" data-i18n="menu.item.tmh">TMH(トヨタ自動車北海道)</a></li>
+                <li><a href="#" data-i18n="menu.item.tmk">TMK(トヨタ自動車九州)</a></li>
+                <li><a href="#" data-i18n="menu.item.tmmtm">TMMTN(北米テネシー)</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- オーバーレイ -->
+    <div id="sidebarOverlay" class="overlay" hidden></div>
+
+    <!-- ===== ヘッダー ===== -->
+    <header class="app-header" role="banner">
+        <div class="container header-inner">
+            <!-- ハンバーガー：menu.js が aria-expanded/.is-open を切替 → CSSで×化 -->
+            <button id="menuToggle" class="hamburger" aria-label="メニューを開閉" aria-controls="sidebar"
+                aria-expanded="false">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
+
+            <!-- タイトル -->
+            <h1 class="app-title" data-i18n="app.title">{{ app_title }}</h1>
+
+            <!-- 言語トグル（現在が日本語→"English"／英語→"日本語"） -->
+            <div class="lang-switch" aria-label="言語切替">
+                <button id="lang-toggle" class="lang-btn" type="button">English</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== メイン ===== -->
+    <main class="container" id="main" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ===== ステータスバー（フッター） ===== -->
+    <footer id="statusbar" class="statusbar" role="status" aria-live="polite">
+        <div class="container">
+            <span id="status-text">読み込み中...</span>
+        </div>
+    </footer>
+
+    <!-- 既存スクリプト -->
+    <script src="{{ url_for('static', filename='status.js') }}"></script>
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+
+    <!-- 言語トグルのラベル更新（現在言語の逆を表示） -->
+    <script>
+        function updateLangToggleLabel() {
+            const btn = document.getElementById('lang-toggle');
+            if (!btn || !window.AppI18n) return;
+            const curr = AppI18n.current;  // 'ja' or 'en'
+            btn.textContent = (curr === 'ja') ? 'English' : '日本語';
+            btn.setAttribute(
+                'aria-label',
+                (curr === 'ja') ? 'Switch language to English' : '言語を日本語に切り替え'
+            );
+            btn.title = btn.getAttribute('aria-label');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('lang-toggle');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const next = (AppI18n.current === 'ja') ? 'en' : 'ja';
+                    AppI18n.setLanguage(next);
+                });
+            }
+            updateLangToggleLabel();
+            document.addEventListener('i18n:changed', updateLangToggleLabel);
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
