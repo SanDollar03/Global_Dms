@@ -1,0 +1,11 @@
+{
+    "app.title": "グローバルDMS",
+    "menu.location": "ロケーション選択",
+    "menu.item.tmc_kinu": "TMC衣浦",
+    "menu.item.tmc_kamigo": "TMC上郷",
+    "menu.item.tmc_tahara": "TMC田原",
+    "menu.item.tmc_gigacast": "TMCギガキャスト",
+    "menu.item.tmh": "TMH(トヨタ自動車北海道)",
+    "menu.item.tmk": "TMK(トヨタ自動車九州)",
+    "menu.item.tmmtm": "TMMTN(北米テネシー)"
+}
