@@ -1,0 +1,11 @@
+{
+  "app.title": "Global DMS",
+  "menu.location": "Select Location",
+  "menu.item.tmc_kinu": "TMC_Kinuura",
+  "menu.item.tmc_kamigo": "TMC_Kamigo",
+  "menu.item.tmc_tahara": "TMC_Tahara",
+  "menu.item.tmc_gigacast": "TMC_Gigacast",
+  "menu.item.tmh": "TMH (Toyota Motor Hokkaido)",
+  "menu.item.tmk": "TMK (Toyota Motor Kyusyu)",
+  "menu.item.tmmtm": "TMMTN (Toyota Motor Manufacturing Tennessee)"
+}
