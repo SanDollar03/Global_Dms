@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- 画面中央にロゴを固定表示。CSSで可変、JSで「元の50%」上限を反映 -->
+  <img
+    id="centerLogo"
+    class="center-logo"
+    src="{{ url_for('serve_logo', filename='Global_DMS_Logo.png') }}"
+    alt="Global DMS Logo"
+    decoding="async"
+  />
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='logo-scale.js') }}"></script>
+{% endblock %}
